@@ -1,0 +1,27 @@
+{
+  "name": "fpa-sdk",
+  "version": "1.0.0",
+  "description": "FPA application SDK",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "parcel build src/index.ts --target node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/everyawake/fpa-sdk-js.git"
+  },
+  "author": "GenesisSam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/everyawake/fpa-sdk-js/issues"
+  },
+  "homepage": "https://github.com/everyawake/fpa-sdk-js#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
