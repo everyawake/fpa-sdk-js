@@ -1,10 +1,13 @@
 {
   "name": "fpa-sdk",
+  "alias": {
+    "fpa-sdk": "./src/index.ts"
+  },
   "version": "1.0.0",
   "description": "FPA application SDK",
   "main": "src/index.ts",
   "scripts": {
-    "build": "parcel build src/index.ts --target node"
+    "build": "parcel build src/index.ts --global FPA --target node --bundle-node-modules"
   },
   "repository": {
     "type": "git",
