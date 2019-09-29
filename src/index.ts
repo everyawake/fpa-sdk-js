@@ -18,6 +18,11 @@ export default class FPA_SDK {
     return this.instance;
   }
 
+  /**
+   * TODO: should return promise value
+   * return should user auth status!
+   *
+   */
   public async getUserToken(otid: string) {
     const publicKey = this.getPublicKey();
     const result = (await axios.post(`${SDK_END_POINT_URL}/otid/${otid}`, {
