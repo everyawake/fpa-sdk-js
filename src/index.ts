@@ -1,8 +1,8 @@
 import axios from "axios";
 import * as wsClient from "socket.io-client";
 
-// const SDK_END_POINT_URL = "https://fpa-backend.herokuapp.com";
-const SDK_END_POINT_URL = "http://www.lvh.me:3000";
+const SDK_END_POINT_URL = "https://fpa-backend.herokuapp.com";
+// const SDK_END_POINT_URL = "http://www.lvh.me:3000";
 
 export default class FPA_SDK {
   private static instance: FPA_SDK | null = null;
@@ -38,10 +38,10 @@ export default class FPA_SDK {
         return Promise.resolve({ code: 404, status: "not_found" });
       }
     } catch (err) {
-      if (err.response.status === 404) {
+      if (err.response && err.response.status === 404) {
         return Promise.resolve({ code: 404, status: "not_found" });
       }
-      return Promise.reject({ code: 500, status: "unexpected error" });
+      return Promise.reject({ code: 500, status: err });
     }
   }
 
@@ -52,10 +52,9 @@ export default class FPA_SDK {
         otid,
         "thirdparty-public-key": publicKey
       });
-      console.log("@>>>>>>>>>", result);
       return result.data.data.result;
     } catch (err) {
-      if (err.response.status === 404) {
+      if (err.response && err.response.status === 404) {
         return Promise.resolve({ code: 404, status: err.response.data.result });
       }
       return Promise.reject(err);
@@ -76,16 +75,16 @@ export default class FPA_SDK {
 
   protected readonly joinChannel = (channelId: string) => {
     return new Promise(done => {
+      this.socket.emit("fpa_channel_join", {
+        channelId
+      });
+
       this.socket.on("fpa_channel_join", () => {
-        console.log("!!!!!!!! connect");
+        console.log("!!!!!!!! connected");
       });
       this.socket.on("auth_send", data => {
         console.log("!!!!!!!!!! recv auth", data);
         done(data);
-      });
-
-      this.socket.emit("fpa_channel_join", {
-        channelId
       });
     });
   };

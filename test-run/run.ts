@@ -3,7 +3,7 @@ import FPA from "../src";
 const fpaIns = FPA.getInstance(
   "8Rn6HXnuFZWNYQUaLk6+ip5dz1bEzZDsbMBz3oU6Ks6qgoTq3kBg/VNaIxsceoJ/4Ptr1MVju11/DIO+MCJ4Sg=="
 );
-const otid = "GieGb";
+const otid = "xxd1a";
 fpaIns
   .getUserToken(otid)
   .then(async (result: any) => {
