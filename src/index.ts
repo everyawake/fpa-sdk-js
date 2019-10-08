@@ -6,7 +6,6 @@ const SDK_END_POINT_URL = "https://fpa-backend.herokuapp.com";
 
 export default class FPA_SDK {
   private static instance: FPA_SDK | null = null;
-  private socket = wsClient(`${SDK_END_POINT_URL}/fpa`);
   private publicKey = "";
 
   public static getInstance(publicKey: string) {
@@ -75,15 +74,12 @@ export default class FPA_SDK {
 
   protected readonly joinChannel = (channelId: string) => {
     return new Promise(done => {
-      this.socket.emit("fpa_channel_join", {
+      const socket = wsClient(`${SDK_END_POINT_URL}/fpa`);
+      socket.emit("fpa_channel_join", {
         channelId
       });
 
-      this.socket.on("fpa_channel_join", () => {
-        console.log("!!!!!!!! connected");
-      });
-      this.socket.on("auth_send", data => {
-        console.log("!!!!!!!!!! recv auth", data);
+      socket.on("auth_send", data => {
         done(data);
       });
     });
